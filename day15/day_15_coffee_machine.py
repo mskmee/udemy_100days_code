@@ -43,22 +43,19 @@ while machine_works:
     answer = input('What would you like? (espresso/latte/cappuccino): ').lower()
     if answer == 'espresso':
         drink = day15_menu.MENU['espresso']
-        menu = drink['ingredients']
-        if check_resources(menu):
+        if check_resources(drink['ingredients']):
             print(day_15_art.espresso)
         else:
             continue
     elif answer == 'latte':
         drink = day15_menu.MENU['latte']
-        menu = drink['ingredients']
-        if check_resources(menu):
+        if check_resources(drink['ingredients']):
             print(day_15_art.latte)
         else:
             continue
     elif answer == 'cappuccino':
         drink = day15_menu.MENU['cappuccino']
-        menu = drink['ingredients']
-        if check_resources(menu):
+        if check_resources(drink['ingredients']):
             print(day_15_art.espresso)
         else:
             continue
