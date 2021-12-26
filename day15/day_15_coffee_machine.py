@@ -25,19 +25,17 @@ def check_value_type_coins(coin):
 
 
 def check_resources(drink_type):
-    if answer == 'espresso':
-        if drink_type['ingredients']['water'] < leftovers['water'] and drink_type['ingredients']['coffee'] < leftovers['coffee']:
-            return True
-        else:
+    for item in drink_type:
+        if drink_type[item] > leftovers[item]:
+            print(f"Sorry there is not enough {item}.")
             return False
-    else:
-        if drink_type['ingredients']['water'] < leftovers['water'] and drink_type['ingredients']['milk'] < leftovers['milk'] and drink_type['ingredients']['coffee'] < leftovers['coffee']:
-            return True
         else:
-            return False
+            return True
+
 
 
 leftovers = day15_menu.resources
+leftovers['money'] = 0
 machine_works = True
 
 while machine_works:
@@ -45,24 +43,24 @@ while machine_works:
     answer = input('What would you like? (espresso/latte/cappuccino): ').lower()
     if answer == 'espresso':
         drink = day15_menu.MENU['espresso']
-        if check_resources(drink):
+        menu = drink['ingredients']
+        if check_resources(menu):
             print(day_15_art.espresso)
         else:
-            print('Sorry got not enough resources')
             continue
     elif answer == 'latte':
         drink = day15_menu.MENU['latte']
-        if check_resources(drink):
+        menu = drink['ingredients']
+        if check_resources(menu):
             print(day_15_art.latte)
         else:
-            print('Sorry got not enough resources')
             continue
     elif answer == 'cappuccino':
         drink = day15_menu.MENU['cappuccino']
-        if check_resources(drink):
+        menu = drink['ingredients']
+        if check_resources(menu):
             print(day_15_art.espresso)
         else:
-            print('Sorry got not enough resources')
             continue
     elif answer == 'report':
         print(leftovers)
@@ -77,14 +75,14 @@ while machine_works:
 
     money_got = coins_check()
     if money_got >= drink['cost']:
-        leftovers['money'] = drink['cost']
+        leftovers['money'] += drink['cost']
         change = money_got - drink['cost']
         leftovers['water'] -= drink['ingredients']['water']
         leftovers['coffee'] -= drink['ingredients']['coffee']
         if answer != 'espresso':
             leftovers['milk'] -= drink['ingredients']['milk']
 
-        if change > 0:
+        if change >= 0:
             print(f'Here is you ${round(change, 2)} in change')
             print(f'Enjoy you {answer}')
     else:
