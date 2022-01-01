@@ -20,7 +20,7 @@ for turtle_index in range(0, 6):
     all_turtles.append(new_turtle)
 
 
-while user_bet:
+if user_bet:
     is_race_on = True
 
 
