@@ -20,6 +20,8 @@ left_paddle = Paddle()
 right_paddle = Paddle()
 right_paddle.goto(270, 0)
 
+speed = 1
+
 
 screen.listen()
 screen.onkey(right_paddle.move_up, 'Up')
@@ -43,8 +45,13 @@ while game_on:
     #detect collision with the paddle
     if right_paddle.distance(ball) < 50 and ball.xcor() > 250:
         ball.ball_bounce_paddle()
+        speed += 0.3
+        ball.speed(speed)
+
     elif left_paddle.distance(ball) < 50 and ball.xcor() < -250:
         ball.ball_bounce_paddle()
+        speed += 0.3
+        ball.speed(speed)
 
     if ball.xcor() > 280:
         score.update_score('left_player')

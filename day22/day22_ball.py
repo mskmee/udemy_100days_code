@@ -10,11 +10,11 @@ class Ball(Turtle):
         self.shape('square')
         self.resizemode('user')
         self.shapesize(0.6, 0.6, 0.6)
-        self.speed(2)
         self.x_move = 10
         self.y_move = 10
 
     def start_ball(self):
+        self.speed(1)
         new_x = self.xcor() + self.x_move
         new_y = self.ycor() + self.y_move
         self.goto(new_x, new_y)
