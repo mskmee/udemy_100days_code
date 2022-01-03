@@ -48,10 +48,10 @@ while game_on:
 
     if ball.xcor() > 280:
         score.update_score('left_player')
-        ball.goto(0, 0)
+        ball.reset_position()
     elif ball.xcor() < -280:
         score.update_score('right_player')
-        ball.goto(0, 0)
+        ball.reset_position()
 
     if score.right_player_score == 3:
         score.end_game('Right player')
