@@ -12,6 +12,7 @@ class Player(Turtle):
         self.goto(STARTING_POSITION)
         self.shape('turtle')
         self.color('black')
+        self.setheading(90)
 
     def finish(self):
         if self.ycor() == 280:
