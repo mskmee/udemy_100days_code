@@ -1,6 +1,7 @@
 from tkinter import *
 import random
 import pandas
+from tkinter import messagebox
 
 
 dont_know = []
@@ -23,19 +24,6 @@ def flip_card():
 def unknown_btn_click():
     global dont_know
     dont_know.append(current_card)
-    # try:
-    #     data = pandas.read_csv('data/words_to_learn.csv')
-    #     dont_know_words = data.to_dict(orient='records')
-    #     print(f'dont know {dont_know}')
-    #     print(f'words {dont_know_words}')
-    #     new_data = {(key, value) for (key, value) in dont_know[0].items()}
-    #     print(f'new data {new_data}')
-    #     dont_know_words.append(new_data)
-    #     data = pandas.DataFrame(dont_know_words)
-    #     data.to_csv('data/words_to_learn.csv', index=False)
-
-    data = pandas.DataFrame(dont_know)
-    data.to_csv('data/words_to_learn.csv', index=False)
     next_card()
 
 
@@ -55,6 +43,17 @@ def next_card():
     flip_timer = window.after(3000, func=flip_card)
 
 
+def on_closing():
+    if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        try:
+            data = pandas.read_csv('data/words_to_learn.csv', encoding='utf-8')
+        except FileNotFoundError:
+            data = pandas.DataFrame(dont_know)
+            data.to_csv('data/words_to_learn.csv', index=False)
+        else:
+            data = data.append(pandas.DataFrame(dont_know))
+            data.to_csv('data/words_to_learn.csv', index=False, encoding='utf-8')
+        window.destroy()
 # ---------------UI Setup--------------
 window = Tk()
 window.config(padx=50, pady=50, background='#aae0c0')
@@ -82,5 +81,5 @@ oke_btn.place(x=340, y=230)
 
 next_card()
 
-
+window.protocol("WM_DELETE_WINDOW", on_closing)
 window.mainloop()
